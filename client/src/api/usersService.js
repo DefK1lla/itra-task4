@@ -11,8 +11,11 @@ class Users {
     }
 
     async delete(token, users) {
+        console.log(users)
         const response = await axios.delete('http://localhost:5000/api/users/delete', {
-            body: 'dsad'
+            data: {
+                users
+            }
         });
         return response.data;
     }

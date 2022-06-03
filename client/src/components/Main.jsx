@@ -9,7 +9,6 @@ import { Container } from "react-bootstrap";
 function Main() {
     const users = useSelector(state => state.users.data);
     const dispatch = useDispatch();
-    console.log(users)
     function onBlock() {
 
     }
