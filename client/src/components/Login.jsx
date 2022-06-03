@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import { login } from "../actions/authorization";
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const dispatch = useDispatch();
-    const isAuth = useSelector(state => state.user.isAuth);
 
     function onSubmit(e) {
         e.preventDefault();

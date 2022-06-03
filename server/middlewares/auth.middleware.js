@@ -8,8 +8,8 @@ module.exports = (request, response, next) => {
     }
 
     try {
-        const token = request.headers.authorization;
-        if (!token) return response.status(401).json({ message: 'Auth error' });
+        const token = request.headers.authorization.split(' ')[1];
+        if (!token) return response.json({ message: 'Auth error', success: false });
 
         const secretKey = config.get('secretKey');
         const decoded = jwt.verify(token, secretKey);

@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const config = require('config');
-const corsMiddleware = require('./middlewares/cors.middleware');
+const cors = require('cors');
 const authRouter = require('./routes/auth.routes');
 const usersRouter = require('./routes/users.routes');
 
@@ -10,7 +10,7 @@ const DB_URL = config.get('dbURL');
 
 const app = express();
 
-app.use(corsMiddleware);
+app.use(cors());
 app.use(express.json());
 app.use('/api/auth', authRouter);
 app.use('/api/users', usersRouter);

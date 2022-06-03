@@ -1,54 +1,46 @@
-import axios from 'axios';
+import authService from '../api/authService';
 import { setUser } from "../reducers/userReducer";
 
+const login = (username, password) => {
+    return async (dispatch) => {
+        try {
+            const data = await authService.login(username, password);
+            dispatch(setUser(data.user));
+            localStorage.setItem('token', data.token);
+        } catch (e) {
+            alert(e);
+        }
+    }
+};
 
-export const registration = async (username, email, password) => {
+const registration = async (username, email, password) => {
     try {
-        const response = await axios.post('http://localhost:5000/api/auth/registration', {
-            username,
-            email,
-            password
-        });
-
-        alert(response.data.message);
+        const data = await authService.registration(username, email, password);
+        alert(data.message);
+        return data.success;
     } catch (e) {
         alert(e);
     }
 };
 
-export const login = (username, password) => {
-    return async (dispatch) => {
-        try {
-            const response = await axios.post('http://localhost:5000/api/auth/login', {
-                username,
-                password
-            });
-
-            dispatch(setUser(response.data.user));
-            localStorage.setItem('token', response.data.token);
-        } catch (e) {
-            alert(e.response.data.message);
-        }
-    }
-};
-
-export const auth = () => {
+const authentication = () => {
     return async (dispatch) => {
         try {
             const token = localStorage.getItem('token');
-            if (token) {
-                const response = await axios.get('http://localhost:5000/api/auth/auth', {
-                    headers: {
-                        authorization: token
-                    }
-                });
-
-                dispatch(setUser(response.data.user));
-                localStorage.setItem('token', response.data.token);
+            if (!token) return;
+            const data = await authService.authentication(token);
+            if (data.success) {
+                dispatch(setUser(data.user));
+                localStorage.setItem('token', data.token);
+            } else {
+                alert(data.message);
+                localStorage.removeItem('token');
             }
         } catch (e) {
-            alert(e.response.data.message);
+            alert('Auth error');
             localStorage.removeItem('token');
         }
     }
 };
+
+export { registration, login, authentication };

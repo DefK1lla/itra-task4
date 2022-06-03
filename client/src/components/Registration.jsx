@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { registration } from "../actions/authorization";
+import { registration, login } from "../actions/authorization";
+import { useDispatch } from "react-redux";
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 
 
@@ -7,10 +8,12 @@ const Registration = () => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const dispatch = useDispatch();
 
     function onSubmit(e) {
         e.preventDefault();
-        registration(username, email, password);
+        const ok = registration(username, email, password);
+        if (ok) dispatch(login(username, password));
     }
 
     return (

@@ -7,13 +7,13 @@ class AuthController {
     async registration(request, response) {
         try {
             const { username, email, password } = request.body;
-            if (username === '' || email === '' || password === '') return response.status(400).json({ message: "Fill in the field" });
+            if (username === '' || email === '' || password === '') return response.json({ message: "Fill in the field", success: false });
 
             const isExistsEmail = await User.findOne({ email });
-            if (isExistsEmail) return response.json({ message: "email exists" });
+            if (isExistsEmail) return response.json({ message: "email exists", success: false });
 
             const isExistsUsername = await User.findOne({ username });
-            if (isExistsUsername) return response.json({ message: "username exists" });
+            if (isExistsUsername) return response.json({ message: "username exists", success: false });
 
             const userData = {
                 username,
@@ -25,7 +25,7 @@ class AuthController {
             const user = new User(userData);
             await user.save();
 
-            return response.json({ message: "User was created" })
+            return response.json({ message: "User was created", success: true });
 
         } catch (e) {
             console.log(e);
@@ -36,11 +36,11 @@ class AuthController {
     async login(request, response) {
         try {
             const { username, password } = request.body;
-            if (username === '' || password === '') return response.status(400).json({ message: "Fill in the field" });
+            if (username === '' || password === '') return response.json({ message: "Fill in the field" });
 
             const user = await User.findOne({ username });
             if (!user) return response.json({ message: "User not found" });
-            if (user.status === 'Blocked') return response.status(400).json({ message: "User blocked" });
+            if (user.status === 'Blocked') return response.json({ message: "User blocked" });
 
             const isPassValid = bcrypt.compareSync(password, user.password);
             if (!isPassValid) return response.json("Invalid password");
@@ -84,7 +84,8 @@ class AuthController {
                     id: user.id,
                     email: user.email,
                     last_login_date: user.last_login_date
-                }
+                },
+                success: true
             });
         } catch (e) {
             console.log(e);

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Route, Routes } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
-import { auth } from './actions/authorization';
+import { authentication } from './actions/authorization';
 import Navibar from "./components/Navibar"
 import Login from "./components/Login";
 import Registration from "./components/Registration";
@@ -13,7 +13,7 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(auth());
+    dispatch(authentication());
   }, []);
 
   return (
