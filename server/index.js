@@ -5,7 +5,7 @@ const cors = require('cors');
 const authRouter = require('./routes/AuthRoutes');
 const usersRouter = require('./routes/UsersRoutes');
 
-const PORT = config.get('serverPort');
+const PORT = process.env.PORT || config.get('serverPort');
 const DB_URL = config.get('dbURL');
 
 const app = express();
