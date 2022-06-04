@@ -5,7 +5,7 @@ const LOGOUT = "LOGOUT";
 
 const defaultState = {
     currentUser: {},
-    isAuth: false
+    isAuth: null
 };
 
 export default function userReducer(state = defaultState, action) {
@@ -27,7 +27,6 @@ export default function userReducer(state = defaultState, action) {
             return state;
     }
 }
-
 
 export const setUser = user => ({ type: SET_USER, payload: user });
 export const logout = () => ({ type: LOGOUT });

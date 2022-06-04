@@ -11,8 +11,6 @@ const Navibar = () => {
     return (
         <div>
             <Container>
-
-
                 {!isAuth &&
                     <Nav className="d-flex justify-content-end">
                         <Nav.Item className="m-1">
@@ -32,7 +30,6 @@ const Navibar = () => {
                         </Nav.Item>
                     </Nav>
                 }
-
             </Container>
         </div>
     );

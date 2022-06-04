@@ -14,7 +14,6 @@ module.exports = async (request, response, next) => {
 
         const secretKey = config.get('secretKey');
         const decoded = jwt.verify(token, secretKey);
-
         const user = await User.findById(decoded.id);
 
         if (user === null) {

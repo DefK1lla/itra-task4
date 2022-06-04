@@ -24,8 +24,8 @@ class UsersController {
 
     blockById = async (request, response) => {
         try {
-            for (let i = 0; i < request.body.userIds.length; i++) {
-                await User.findByIdAndUpdate(request.body.userIds[i], { status: 'Blocked' });
+            for (let element of request.body.userIds) {
+                await User.findByIdAndUpdate(element, { status: 'Blocked' });
             }
 
             this.getAll(request, response);
@@ -37,8 +37,8 @@ class UsersController {
 
     unblockById = async (request, response) => {
         try {
-            for (let i = 0; i < request.body.userIds.length; i++) {
-                await User.findByIdAndUpdate(request.body.userIds[i], { status: 'Not blocked' });
+            for (let element of request.body.userIds) {
+                await User.findByIdAndUpdate(element, { status: 'Not blocked' });
             }
 
             this.getAll(request, response);
@@ -50,8 +50,8 @@ class UsersController {
 
     deleteById = async (request, response) => {
         try {
-            for (let i = 0; i < request.body.userIds.length; i++) {
-                await User.findByIdAndDelete(request.body.userIds[i]);
+            for (let element of request.body.userIds) {
+                await User.findByIdAndDelete(element);
             }
 
             this.getAll(request, response);

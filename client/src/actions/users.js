@@ -31,7 +31,6 @@ export const blockUsers = (userIds) => {
     }
 }
 
-
 export const unblockUsers = (userIds) => {
     return async (dispatch) => {
         const data = await usersService.unblock(userIds);

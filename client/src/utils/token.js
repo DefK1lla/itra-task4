@@ -6,6 +6,7 @@ const userToken = {
     set(newToken) {
         return localStorage.setItem('token', newToken);
     },
+
     remove() {
         return localStorage.removeItem('token');
     }

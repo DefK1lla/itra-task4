@@ -46,7 +46,6 @@ class Auth {
             userToken.remove();
         }
     }
-
 }
 
 const authService = new Auth()

@@ -22,6 +22,7 @@ class AuthController {
                 reg_date: new Date().toLocaleDateString(),
                 status: 'Not blocked',
             }
+
             const user = new User(userData);
             await user.save();
 
@@ -62,7 +63,6 @@ class AuthController {
                     status: user.status
                 }
             });
-
         } catch (e) {
             console.log(e);
             response.send({ message: "Server Error" });
@@ -72,7 +72,6 @@ class AuthController {
     async authentication(request, response) {
         try {
             const user = await User.findOne({ _id: request.user.id });
-
             const secretKey = config.get('secretKey');
             const token = jwt.sign({ id: user.id }, secretKey, { expiresIn: '1h' });
 
