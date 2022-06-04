@@ -23,7 +23,7 @@ class Auth {
                 username,
                 password
             });
-            localStorage.setItem('token', response.data.token);
+            userToken.set(response.data.token);
             return response.data.user;
         } catch (e) {
             alert(e.response.data.message);
@@ -39,7 +39,7 @@ class Auth {
                     authorization: "Bearer " + token
                 }
             });
-            userToken.set();
+            userToken.set(response.data.token);
             return response.data.user;
         } catch (e) {
             alert(e.response.data.message);
