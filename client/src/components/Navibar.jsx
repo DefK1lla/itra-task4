@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../reducers/userReducer";
 import { Link } from "react-router-dom";
-import { Nav, Container } from 'react-bootstrap';
+import { Nav, Container } from "react-bootstrap";
 
 const Navibar = () => {
     const isAuth = useSelector(state => state.user.isAuth);

@@ -7,13 +7,13 @@ class AuthController {
     async registration(request, response) {
         try {
             const { username, email, password } = request.body;
-            if (username === '' || email === '' || password === '') return response.json({ message: "Fill in the field", success: false });
+            if (username === '' || email === '' || password === '') return response.status(400).json({ message: "Fill in the field" });
 
             const isExistsEmail = await User.findOne({ email });
-            if (isExistsEmail) return response.json({ message: "email exists", success: false });
+            if (isExistsEmail) return response.status(400).json({ message: "email exists" });
 
             const isExistsUsername = await User.findOne({ username });
-            if (isExistsUsername) return response.json({ message: "username exists", success: false });
+            if (isExistsUsername) return response.status(400).json({ message: "username exists" });
 
             const userData = {
                 username,
@@ -25,7 +25,7 @@ class AuthController {
             const user = new User(userData);
             await user.save();
 
-            return response.json({ message: "User was created", success: true });
+            return response.json({ message: "User was created" });
 
         } catch (e) {
             console.log(e);
@@ -36,21 +36,22 @@ class AuthController {
     async login(request, response) {
         try {
             const { username, password } = request.body;
-            if (username === '' || password === '') return response.json({ message: "Fill in the field" });
+            if (username === '' || password === '') return response.status(400).json({ message: "Fill in the field" });
 
             const user = await User.findOne({ username });
-            if (!user) return response.json({ message: "User not found" });
-            if (user.status === 'Blocked') return response.json({ message: "User blocked" });
+            if (!user) return response.status(400).json({ message: "User not found" });
+            if (user.status === 'blocked') return response.status(400).json({ message: "User blocked" });
 
             const isPassValid = bcrypt.compareSync(password, user.password);
-            if (!isPassValid) return response.json("Invalid password");
+            if (!isPassValid) return response.status(400).json({ message: "Invalid password" });
 
             const secretKey = config.get('secretKey');
             const token = jwt.sign({ id: user.id }, secretKey, { expiresIn: '1h' });
 
-            user.update({
-                last_login_date: new Date().toLocaleDateString()
-            });
+            await User.findOneAndUpdate(
+                { username: user.username },
+                { last_login_date: new Date().toLocaleDateString() }
+            );
 
             return response.json({
                 token,

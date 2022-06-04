@@ -1,24 +1,73 @@
-import axios from 'axios';
+import axios from "axios";
+import userToken from "../utils/token";
 
 class Users {
-    async getAll(token) {
-        const response = await axios.get('http://localhost:5000/api/users/all', {
-            headers: {
-                authorization: "Bearer " + token
-            }
-        });
-        return response.data;
-    }
+    BASE_URL = "http://localhost:5000/api/users/";
 
-    async delete(token, users) {
-        console.log(users)
-        const response = await axios.delete('http://localhost:5000/api/users/delete', {
-            data: {
-                users
-            }
-        });
-        return response.data;
-    }
+    getAll = async () => {
+        try {
+            const token = userToken.get();
+            if (!token) return alert("Sign in to continue");
+            const response = await axios.get(this.BASE_URL + 'all', {
+                headers: {
+                    authorization: "Bearer " + token
+                }
+            });
+            return response.data.users;
+        } catch (e) {
+            alert(e.response.data.message);
+        }
+    };
+
+    delete = async (userIds) => {
+        try {
+            const token = userToken.get();
+            const response = await axios.delete(this.BASE_URL + 'delete', {
+                headers: {
+                    authorization: "Bearer " + token
+                },
+                data: {
+                    userIds
+                }
+            });
+
+            return response.data.users;
+        } catch (e) {
+            alert(e.response.data.message);
+        }
+    };
+
+    block = async (userIds) => {
+        try {
+            const token = userToken.get();
+            const response = await axios.put(this.BASE_URL + 'block', {
+                userIds
+            }, {
+                headers: {
+                    authorization: "Bearer " + token,
+                }
+            });
+            return response.data.users;
+        } catch (e) {
+            alert(e.response.data.message);
+        }
+    };
+
+    unblock = async (userIds) => {
+        try {
+            const token = userToken.get();
+            const response = await axios.put(this.BASE_URL + 'unblock', {
+                userIds
+            }, {
+                headers: {
+                    authorization: "Bearer " + token,
+                }
+            });
+            return response.data.users;
+        } catch (e) {
+            alert(e.response.data.message);
+        }
+    };
 }
 
 const usersService = new Users();

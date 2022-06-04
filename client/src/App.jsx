@@ -3,9 +3,9 @@ import { Route, Routes } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { authentication } from './actions/authorization';
 import Navibar from "./components/Navibar"
-import Login from "./components/Login";
-import Registration from "./components/Registration";
-import Main from "./components/Main";
+import Login from "./pages/Login";
+import Registration from "./pages/Registration";
+import Main from "./pages/Main";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {

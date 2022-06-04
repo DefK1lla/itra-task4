@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUsers } from '../actions/users';
+import { getUsers } from "../actions/users";
 import { setUsers } from "../reducers/usersReducer";
 import { Table, Form } from "react-bootstrap";
 

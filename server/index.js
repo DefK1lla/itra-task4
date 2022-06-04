@@ -2,8 +2,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const config = require('config');
 const cors = require('cors');
-const authRouter = require('./routes/auth.routes');
-const usersRouter = require('./routes/users.routes');
+const authRouter = require('./routes/AuthRoutes');
+const usersRouter = require('./routes/UsersRoutes');
 
 const PORT = config.get('serverPort');
 const DB_URL = config.get('dbURL');

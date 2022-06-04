@@ -1,17 +1,19 @@
 import React, { useState } from "react";
-import { login } from "../actions/authorization";
-import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import { registration, login } from "../actions/authorization";
 import { useDispatch } from "react-redux";
+import { Container, Row, Col, Form, Button } from "react-bootstrap";
 
 
-const Login = () => {
+const Registration = () => {
     const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const dispatch = useDispatch();
 
-    function onSubmit(e) {
+    async function onSubmit(e) {
         e.preventDefault();
-        dispatch(login(username, password));
+        const ok = await registration(username, email, password);
+        if (ok) dispatch(login(username, password));
     }
 
     return (
@@ -20,7 +22,7 @@ const Login = () => {
                 <Row className="pt-5 d-flex flex-column align-items-center justify-content-center">
                     <Col xs lg="4">
                         <h1 className="mb-3 text-center">
-                            Log In
+                            Registration
                         </h1>
                         <Form>
                             <Form.Group className="mb-3" controlId="username">
@@ -28,6 +30,14 @@ const Login = () => {
                                 <Form.Control type="username" placeholder="Enter username"
                                     value={username}
                                     onChange={e => setUsername(e.target.value)}
+                                />
+                            </Form.Group>
+
+                            <Form.Group className="mb-3" controlId="useremail">
+                                <Form.Label>Email address</Form.Label>
+                                <Form.Control type="email" placeholder="Enter email"
+                                    value={email}
+                                    onChange={e => setEmail(e.target.value)}
                                 />
                             </Form.Group>
 
@@ -39,7 +49,7 @@ const Login = () => {
                                 />
                             </Form.Group>
                             <Button onClick={(e) => onSubmit(e)} variant="primary" type="submit">
-                                Log In
+                                Registration
                             </Button>
                         </Form>
                     </Col>
@@ -49,4 +59,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default Registration;
