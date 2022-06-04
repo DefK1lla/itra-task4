@@ -46,7 +46,7 @@ class AuthController {
             if (!isPassValid) return response.status(400).json({ message: "Invalid password" });
 
             const secretKey = config.get('secretKey');
-            const token = jwt.sign({ id: user.id }, secretKey, { expiresIn: '1h' });
+            const token = jwt.sign({ id: user.id, status: user.status }, secretKey, { expiresIn: '1h' });
 
             await User.findOneAndUpdate(
                 { username: user.username },
@@ -58,7 +58,8 @@ class AuthController {
                 user: {
                     id: user.id,
                     email: user.email,
-                    last_login_date: user.last_login_date
+                    last_login_date: user.last_login_date,
+                    status: user.status
                 }
             });
 
