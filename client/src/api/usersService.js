@@ -13,7 +13,7 @@ class Users {
                     authorization: "Bearer " + token
                 }
             });
-            return response.data.users;
+            return response.data;
         } catch (e) {
             alert(e.response.data.message);
         }
@@ -30,10 +30,10 @@ class Users {
                     userIds
                 }
             });
-
-            return response.data.users;
+            return response.data;
         } catch (e) {
             alert(e.response.data.message);
+            return e.response;
         }
     };
 
@@ -47,9 +47,10 @@ class Users {
                     authorization: "Bearer " + token,
                 }
             });
-            return response.data.users;
+            return response.data;
         } catch (e) {
             alert(e.response.data.message);
+            return e.response;
         }
     };
 
@@ -63,9 +64,10 @@ class Users {
                     authorization: "Bearer " + token,
                 }
             });
-            return response.data.users;
+            return response.data;
         } catch (e) {
             alert(e.response.data.message);
+            return e.response;
         }
     };
 }
