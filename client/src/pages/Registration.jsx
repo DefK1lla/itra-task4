@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { registration, login } from "../actions/authorization";
 import { useDispatch } from "react-redux";
+import { registration, login } from "../actions/authorization";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 
 

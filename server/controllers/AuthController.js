@@ -40,7 +40,7 @@ class AuthController {
 
             const user = await User.findOne({ username });
             if (!user) return response.status(400).json({ message: "User not found" });
-            if (user.status === 'blocked') return response.status(400).json({ message: "User blocked" });
+            if (user.status === 'Blocked') return response.status(400).json({ message: "User blocked" });
 
             const isPassValid = bcrypt.compareSync(password, user.password);
             if (!isPassValid) return response.status(400).json({ message: "Invalid password" });

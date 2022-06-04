@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Navigate } from "react-router-dom";
 import { login } from "../actions/authorization";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
@@ -12,6 +13,7 @@ const Login = () => {
     function onSubmit(e) {
         e.preventDefault();
         dispatch(login(username, password));
+        return <Navigate to='/main' />
     }
 
     return (
