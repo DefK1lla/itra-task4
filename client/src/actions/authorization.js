@@ -1,5 +1,6 @@
 import authService from "../api/authService";
 import { setUser } from "../reducers/userReducer";
+import { logout } from "../reducers/userReducer";
 
 const registration = async (username, email, password) => {
     const data = await authService.registration(username, email, password);
@@ -19,7 +20,11 @@ const login = (username, password) => {
 const authentication = () => {
     return async (dispatch) => {
         const user = await authService.authentication();
-        if (user) dispatch(setUser(user));
+        if (user) {
+            dispatch(setUser(user));
+        } else {
+            dispatch(logout());
+        }
     }
 };
 
