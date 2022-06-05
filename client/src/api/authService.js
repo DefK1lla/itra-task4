@@ -7,8 +7,8 @@ class Auth {
     registration = async (username, email, password) => {
         try {
             const response = await axios.post(this.BASE_URL + 'registration', {
-                username,
-                email,
+                username: username.toLowerCase(),
+                email: email.toLowerCase(),
                 password
             });
             return response.data;
@@ -20,7 +20,7 @@ class Auth {
     login = async (username, password) => {
         try {
             const response = await axios.post(this.BASE_URL + 'login', {
-                username,
+                username: username.toLowerCase(),
                 password
             });
             userToken.set(response.data.token);
